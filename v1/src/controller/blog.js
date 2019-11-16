@@ -23,6 +23,26 @@ const getList = (uid,keyword) => {
   }]
 }
 
+const getDetailById = id => {
+  return {
+    id: 1,
+    title: "标题A",
+    content: "内容AAA",
+    timestamp: Date.now(),
+    uid: "5007000",
+    username: "robbieyang1"
+  }
+}
+
+const createBlog = data =>{
+  console.log('create blog', data)
+  return {
+    id: 4
+  }
+}
+
 module.exports = {
-  getList
+  getList,
+  getDetailById,
+  createBlog
 }

@@ -2,6 +2,22 @@
 
 > 使用 `koa2` 搭建基础博客系统。
 
+## 启动项目
+
+
+```bash
+# 1.下载依赖包
+$ npm install
+# 2.使用 npm 启动服务 
+$ npm run server
+# 或者 使用 yarn 启动
+$ yarn server
+```
+## 请求地址
+
+- 查询博客列表: http://localhost:3000/api/blog/list?uid=50075000&keyword=博客
+
+
 ## 项目结构
 
 1. 需求

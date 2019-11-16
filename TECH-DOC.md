@@ -158,3 +158,71 @@ server.listen(3000,_=>{
 - 条件查询博客 (`api/blog/detail`、`get`、`id`)
 - 查询博客列表 (`api/blog/list`、`get`、`uid | keyword`)
 
+5. `nodejs` 读取文件
+
+- 回调方式，读取文件
+
+```js
+
+const fs = require('fs')
+const path = require('path')
+function getFileContent (fileName,cb) {
+  
+  const fullFileName = path.resolve(__dirname,'./v1/src/files',fileName)
+  // 读取文件内容
+  fs.readFile(fullFileName,(err,data)=>{
+    if(err) {
+      console.error(err)
+      throw err
+    }
+    cb(JSON.parse(data.toString()))
+  })
+}
+
+getFileContent('a.json', data=>{
+  console.log('data:', data)
+  getFileContent(data.next, datab => {
+    console.log('datab:', datab)
+    getFileContent(datab.next, datac =>{
+      console.log("datac:", datac)
+    })
+  })
+})
+```
+
+- `Promise` 读取文件
+
+```js
+
+const fs = require('fs')
+const path = require('path')
+
+function getFileContent (fileName) {
+  const fullFileName = path.resolve(__dirname,'./v1/src/files',fileName)
+
+  // 读取文件内容
+  const promise = new Promise((resolve,reject)=>{
+    fs.readFile(fullFileName,(err,data)=>{
+      if(err) {
+        console.error(err)
+        reject(err)
+      }
+      resolve(JSON.parse(data.toString()))
+    })
+  })
+  return promise
+}
+
+getFileContent('a.json')
+  .then(data=>{
+    console.log('a.json: ', data)
+    return getFileContent(data.next)
+  })
+  .then(data=>{
+    console.log('b.json: ', data)
+    return getFileContent(data.next)
+  })
+  .then(data=>{
+    console.log('c.json: ', data)
+  })
+```
