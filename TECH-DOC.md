@@ -152,7 +152,7 @@ server.listen(3000,_=>{
 4. 接口设计方案
 
 - 登录 (`api/blog/login`、`post`)
-- 发布 (`api/blog/publish`、`post`)
+- 发布 (`api/blog/create`、`post`)
 - 编辑 (`api/blog/update`、`post`、 `id`)
 - 删除 (`api/blog/delete`、`post`、 `id`)
 - 条件查询博客 (`api/blog/detail`、`get`、`id`)

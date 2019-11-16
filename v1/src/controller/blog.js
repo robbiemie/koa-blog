@@ -34,15 +34,31 @@ const getDetailById = id => {
   }
 }
 
-const createBlog = data =>{
+const create = data =>{
   console.log('create blog', data)
   return {
     id: 4
   }
 }
 
+const update = (id,data) => {
+  console.log('update blog', id, data)
+  return {
+    id
+  }
+}
+
+const delet = (id) => {
+  console.log("delete id", id)
+  return {
+    id
+  }
+}
+
 module.exports = {
   getList,
   getDetailById,
-  createBlog
+  create,
+  update,
+  delet
 }
