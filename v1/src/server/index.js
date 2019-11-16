@@ -10,12 +10,12 @@ const server = http.createServer((req,res)=>{
   let userData = handleUserRouter(req,res)
   if(blogData) {
     data = JSON.stringify(blogData)
-    res.end(JSON.stringify(data))
+    res.end(data)
     return
   }
   if(userData) {
     data = JSON.stringify(userData)
-    res.end(JSON.stringify(data))
+    res.end(data)
     return
   }
   res.writeHead(404,{"Content-type":"text/plain"})

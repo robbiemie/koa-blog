@@ -22,10 +22,10 @@
 
 ## 文档整理
 
-1. [后台设计方案](#)
+1. [后台设计方案](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
 
-2. [数据存储方案](#)
+2. [数据存储方案](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
 
-3. [HTTP请求处理](#)
+3. [HTTP请求处理](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
 
-4. [接口设计方案](#)
+4. [接口设计方案](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
