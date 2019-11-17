@@ -1,16 +1,14 @@
-const login = (username,password) => {
-  if(username==='root' && password === '123') {
-    return {
-      code: 0,
-      msg: "登录成功"
-    }
-  }
-  return {
-    code: -1,
-    msg: "登录失败"
-  }
-}
+const {exec} = require("./../db")
+const login = ({username,password}) => {
 
+  let sql = `select username,nickname from users where username='${username}' and password='${password}'`
+  return exec(sql).then(result=>{
+    return {
+      code: result[0] ? 0 : -103,
+      msg: result[0] ? '登录成功' : '账号密码错误'
+    }
+  })
+}
 module.exports = {
   login
 }

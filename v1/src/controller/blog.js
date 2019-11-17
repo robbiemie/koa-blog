@@ -43,7 +43,9 @@ const update = (data) => {
   }
   let sql = `update blogs set ${props} where id=${data.id};`
   return exec(sql).then(result=>{
-    return result.affectedRows > 0 
+    return {
+      msg: result.affectedRows > 0 ? '操作成功' : '服务器错误'
+    }
   })
 }
 

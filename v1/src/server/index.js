@@ -49,9 +49,11 @@ const server = http.createServer((req,res)=>{
     }
     let userData = handleUserRouter(req,res)
     if(userData) {
-      data = JSON.stringify(userData)
-      res.end(data)
-      return
+      return userData.then(result=>{
+        data = JSON.stringify(result)
+        res.end(data)
+        return
+      })
     }
     res.writeHead(404,{"Content-type":"text/plain"})
     res.write("404 Not Found\n")
