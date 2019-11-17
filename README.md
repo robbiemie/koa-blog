@@ -49,3 +49,5 @@ $ yarn server
 3. [HTTP请求处理](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
 
 4. [接口设计方案](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
+
+5. [用户登录态](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)

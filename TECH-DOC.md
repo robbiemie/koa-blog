@@ -346,3 +346,9 @@ connection.query(del,(err,res)=>{
 connection.end()
 
 ```
+
+5. 用户登录态
+
+- `cookie`
+- `session` 写入 `redis`
+- `nginx` 反向代理
