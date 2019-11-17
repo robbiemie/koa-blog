@@ -6,7 +6,9 @@ class BaseRes {
       message = null
     }
     if(data) {
-      this.data = data
+      if(data.msg) {
+        this.message = data.msg
+      }
     }
     if(message) {
       this.message = message

@@ -1,4 +1,5 @@
 const http = require('http')
+const qs = require('querystring')
 const handleBlogRouter = require("./../router/blog")
 const handleUserRouter = require("./../router/user") 
  
@@ -24,7 +25,7 @@ const handlePostData = (req) => {
          resolve({})
         return
       }
-      resolve(JSON.stringify(data))
+      resolve(data)
     })
   })
 
@@ -36,15 +37,17 @@ const server = http.createServer((req,res)=>{
   res.setHeader("Content-type", "application/json")
   // 处理 POST 请求体
   handlePostData(req).then(postData=>{
-    req.body = postData
+    req.body = JSON.parse(postData)
+    let blogResult = handleBlogRouter(req,res)
     let data = {}
-    let blogData = handleBlogRouter(req,res)
-    let userData = handleUserRouter(req,res)
-    if(blogData) {
-      data = JSON.stringify(blogData)
-      res.end(data)
-      return
+    if(blogResult) {
+      return blogResult.then(result=>{
+        data = JSON.stringify(result)
+        res.end(data)
+        return
+      })
     }
+    let userData = handleUserRouter(req,res)
     if(userData) {
       data = JSON.stringify(userData)
       res.end(data)

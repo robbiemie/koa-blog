@@ -1,58 +1,59 @@
-const getList = (uid,keyword) => {
-  return [{
-    id: 1,
-    title: "标题A",
-    content: "内容AAA",
-    timestamp: Date.now(),
-    uid: "5007000",
-    username: "robbieyang1"
-  },{
-    id: 2,
-    title: "标题 B",
-    content: "内容 BBB",
-    timestamp: Date.now(),
-    uid: "5007001",
-    username: "robbieyang2"
-  },{
-    id: 3,
-    title: "标题C",
-    content: "内容 CCC",
-    timestamp: Date.now(),
-    uid: "5007002",
-    username: "robbieyang3"
-  }]
+const {exec} = require("./../db")
+
+const getList = (nickname,keyword) => {
+  let sql = `select * from blogs where 1=1 `
+  if(nickname) {
+    sql += `and nickname='${nickname}' `
+  }
+  if(keyword) {
+    sql += `and title like '%${keyword}%' or '%${keyword}%'`
+  }
+  sql += 'order by createtime desc;'
+  return exec(sql)
 }
 
 const getDetailById = id => {
-  return {
-    id: 1,
-    title: "标题A",
-    content: "内容AAA",
-    timestamp: Date.now(),
-    uid: "5007000",
-    username: "robbieyang1"
+  let sql = `select * from blogs where 1=1 `
+  if(id) {
+    sql += `and id=${id} `
   }
+  sql += 'order by createtime desc;'
+  return exec(sql)
 }
 
 const create = data =>{
-  console.log('create blog', data)
-  return {
-    id: 4
-  }
+  let sql = `insert into blogs (title,content,createtime,nickname) values ('${data.title}','${data.content}','${Date.now()}','${data.nickname}');`
+  return exec(sql).then(result=>{
+    return {
+      id: result.insertId
+    }
+  })
 }
 
-const update = (id,data) => {
-  console.log('update blog', id, data)
-  return {
-    id
+const update = (data) => {
+  let props = ''
+  if(data.title) {
+    props += `title='${data.title}' `
   }
+  if(data.content) {
+    if(data.title) {
+      props += ','
+    }
+    props += `content='${data.content}' `
+  }
+  let sql = `update blogs set ${props} where id=${data.id};`
+  return exec(sql).then(result=>{
+    return result.affectedRows > 0 
+  })
 }
 
-const delet = (id) => {
-  console.log("delete id", id)
-  return {
-    id
-  }
+const del = ({id,nickname}) => {
+  let sql = `delete from blogs where id=${id} and nickname='${nickname}'`
+  return exec(sql).then(result=>{
+    return {
+      msg: result.affectedRows > 0 ? '操作成功' : '服务器错误'
+    }
+  })
 }
 
 module.exports = {
@@ -60,5 +61,5 @@ module.exports = {
   getDetailById,
   create,
   update,
-  delet
+  del
 }

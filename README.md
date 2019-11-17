@@ -20,7 +20,7 @@ $ yarn server
 - 编辑: http://localhost:3000/api/blog/update
 - 删除: http://localhost:3000/api/blog/delete
 - 条件查询博客: http://localhost:3000/api/blog/detail?id=1
-- 查询博客列表:  http://localhost:3000/api/blog/list?uid=50075000&keyword=博客
+- 查询博客列表:  http://localhost:3000/api/blog/list?username=test&keyword=博客
 
 ## 项目结构
 
