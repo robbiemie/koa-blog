@@ -7,12 +7,24 @@
     "dev": "cross-env NODE_ENV=development yarn server",
     "prod": "cross-env NODE_ENV=production yarn server",
     "server": " nodemon ./index",
+    "lint-fix": "eslint --fix ./v1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "robbieyang",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-fix"
+    }
+  },
   "devDependencies": {
     "cross-env": "^6.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.0.9",
     "nodemon": "^1.19.4"
   },

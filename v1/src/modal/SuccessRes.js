@@ -1,7 +1,7 @@
-const BaseRes = require("./BaseRes")
+const BaseRes = require('./BaseRes')
 class SuccessRes extends BaseRes {
-  constructor(data,message) {
-    super(data,message)
+  constructor (data, message) {
+    super(data, message)
     this.code = 0
   }
 }
