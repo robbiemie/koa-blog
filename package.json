@@ -4,13 +4,19 @@
   "description": "koa",
   "main": "index.js",
   "scripts": {
-    "server": "cross-env NODE_ENV=development nodemon ./index",
+    "dev": "cross-env NODE_ENV=development yarn server",
+    "prod": "cross-env NODE_ENV=production yarn server",
+    "server": " nodemon ./index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "robbieyang",
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^6.0.3",
+    "husky": "^3.0.9",
     "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "mysql": "^2.17.1"
   }
 }

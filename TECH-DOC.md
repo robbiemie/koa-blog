@@ -226,3 +226,58 @@ getFileContent('a.json')
     console.log('c.json: ', data)
   })
 ```
+
+6. 数据库操作
+
+```sql
+-- 显示所有数据库
+show databases;
+-- 创建数据库
+create database <db_name>
+-- 显示所有数据表
+show tables;
+-- 查看表结构
+desc <tb_name>;
+-- 创建数据表
+create table <tb_name> (
+  id int unsigned not null primary key; -- 无符号整型、非空、主键  
+  username varchar(45) not null; -- 字符串类型、非空
+);
+-- 新增
+insert into <tb_name> (cols1,col2,...) values (val1,val2,...);
+-- 示例:
+insert into users
+-> (username,`password`,createtime)
+-> values
+-> ('root','123',NOW());
+-- 全查询
+select * from <tb_name>;
+-- 查询
+select <col1>,<col2>,... from <tb_name>;
+-- 示例:
+select username,uid from users;
+-- 条件查询:
+select <col1>,<col2>,... from <tb_name> where <col1=val1>,...
+-- 示例:
+select username,uid from users where username='root'
+-- 多条件查询
+select <col1>,<col2>,... from <tb_name> where <col1=val1> and <col2=val2>
+select <col1>,<col2>,... from <tb_name> where <col1=val1> or <col2=val2>
+-- 模糊查询
+select <col1>,<col2>,... from <tb_name> where col1 like `%<val1>%`
+-- 排序
+select <col1>,<col2>,... from <tb_name> where <col1=val1> order by id;
+-- 倒序
+select <col1>,<col2>,... from <tb_name> where <col1=val1> order by id desc;
+-- 新增一列
+alter table <tb_name>
+-> add column <col3> varchar(45) not null;
+-- 修改字段值
+update <tb_name> set <col1>=<val_new> where <col2>=<val2>;
+-- 示例: 
+update users set nickname='栗子🌰' where id=1;
+-- 删除
+delete from <tb_name> where <col1>=<val1>;
+-- 示例:
+delete from users where id=3;
+```
