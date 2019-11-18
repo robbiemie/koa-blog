@@ -1,1 +1,1 @@
-require("./v1/src/server")
+require('./v1/app')

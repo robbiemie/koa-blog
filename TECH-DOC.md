@@ -350,5 +350,19 @@ connection.end()
 5. 用户登录态
 
 - `cookie`
+  1. 发送 `http` 请求，会将请求域中的 `cookie` 带给服务端
+  2. 服务度可以修改 `cookie` 返回给浏览器
+  3. 限制客户端修改 `cookie`
+
+```js
+// nodejs 操作cookie
+// 读取cookie
+const cookie = req.headers.cookie
+// 写入cookie
+// https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie
+res.setHeader('Set-Cookie', `username=${body.username}1;password=${body.password};Path=/;HttpOnly;Expires=${new Date().toGMTString()}`)
+```
+
+
 - `session` 写入 `redis`
 - `nginx` 反向代理

@@ -9,6 +9,7 @@ connection.connect()
 // console.log('连接数据库', MYSQL_CONF)
 
 function exec (sql) {
+  console.log('执行命令: ', sql)
   const promise = new Promise((resolve, reject) => {
     connection.query(sql, (err, res) => {
       if (err) {
@@ -16,7 +17,7 @@ function exec (sql) {
         reject(err)
         return
       }
-      console.log('操作成功', sql)
+      // console.log('查询结果: ', res)
       resolve(res)
     })
   })

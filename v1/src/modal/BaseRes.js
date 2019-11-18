@@ -8,6 +8,8 @@ class BaseRes {
     if (data) {
       if (data.msg) {
         this.message = data.msg
+      } else {
+        this.data = data
       }
     }
     if (message) {

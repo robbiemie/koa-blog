@@ -7,11 +7,11 @@ const handlePostData = (req) => {
   const method = req.method
   const promise = new Promise((resolve, reject) => {
     if (method !== 'POST') {
-      resolve({})
+      resolve('{}')
       return
     }
     if (req.headers['content-type'] !== 'application/json') {
-      resolve({})
+      resolve('{}')
       return
     }
     let data = ''
@@ -20,7 +20,7 @@ const handlePostData = (req) => {
     })
     req.on('end', _ => {
       if (!data) {
-        resolve({})
+        resolve('{}')
         return
       }
       resolve(data)
@@ -30,9 +30,21 @@ const handlePostData = (req) => {
   return promise
 }
 
+const handleCookie = (strCookie = '') => {
+  return strCookie.split(';').reduce((prev, cur) => {
+    const key = cur.split('=')[0].trim()
+    const val = (cur.split('=')[1] && (cur.split('=')[1]).trim()) || ''
+    prev[key] = val
+    return prev
+  }, {})
+}
+
 const server = http.createServer((req, res) => {
   // 设置响应头
   res.setHeader('Content-type', 'application/json')
+  // 解析 cookie
+  const cookie = handleCookie(req.headers.cookie)
+  req.cookie = cookie
   // 处理 POST 请求体
   handlePostData(req).then(postData => {
     req.body = JSON.parse(postData)
@@ -57,6 +69,4 @@ const server = http.createServer((req, res) => {
   })
 })
 
-server.listen(3000, _ => {
-  console.log('listening on 3000 port!')
-})
+module.exports = server
