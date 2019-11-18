@@ -380,5 +380,27 @@ get <key>
 del <key>
 keys *
 ```
+  2.使用 `nodejs` 连接 `redis`
+```js
+const redis = require('redis')
+
+// 创建客户端
+const client = redis.createClient(6379, '127.0.0.1')
+
+client.on('error', err => {
+  console.log('error', err)
+})
+
+// 测试
+client.set('username', 'rob', redis.print)
+client.get('username', (err, val) => {
+  if (err) {
+    throw err
+  }
+  console.log('val', val)
+  client.quit()
+})
+
+```
 
 - `nginx` 反向代理

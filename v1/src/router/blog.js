@@ -2,6 +2,7 @@ const qs = require('querystring')
 const SuccessRes = require('./../modal/SuccessRes')
 const ErrorRes = require('./../modal/ErrorRes')
 const { getList, getDetailById, create, update, del } = require('./../controller/blog')
+const { loginCheck } = require('./../common/utils')
 
 const handleBlogRouter = (req) => {
   const method = req.method
@@ -25,16 +26,20 @@ const handleBlogRouter = (req) => {
     }
   } else if (method === 'POST') {
     if (path === '/api/blog/create') {
+      const check = loginCheck(req)
+      if (check) return check
       // 发布博客接口
       const body = req.body
-      body.nickname = 'robbieyang' // TODO: mock数据
+      body.nickname = 'robbieyang' // TODO: MOCK
       return create(body).then(result => {
         return new SuccessRes(result)
       })
     } else if (path === '/api/blog/update') {
+      const check = loginCheck(req)
+      if (check) return check
       // 更新博客接口
       const body = req.body
-      body.nickname = 'robbieyang' // TODO: mock数据
+      body.nickname = 'robbieyang' // TODO: MOCK
       return update(body).then(result => {
         if (result) {
           return new SuccessRes(result)
@@ -43,6 +48,8 @@ const handleBlogRouter = (req) => {
         }
       })
     } else if (path === '/api/blog/delete') {
+      const check = loginCheck(req)
+      if (check) return check
       // 删除博客接口
       const body = req.body
       return del(body).then(result => {

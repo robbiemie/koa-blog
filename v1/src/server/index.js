@@ -39,10 +39,16 @@ const handleCookie = (strCookie = '') => {
     return prev
   }, {})
 }
-
 // 处理 session
 const SESSION_DATA = {}
-function handleSession (req) {
+
+const server = http.createServer((req, res) => {
+  // 设置响应头
+  res.setHeader('Content-type', 'application/json')
+  // 解析 cookie
+  const cookie = handleCookie(req.headers.cookie)
+  req.cookie = cookie
+  // 解析 session
   let uid = req.cookie.uid
   let session = ''
   let needSetCookie = false
@@ -57,29 +63,18 @@ function handleSession (req) {
     SESSION_DATA[uid] = {}
   }
   session = SESSION_DATA[uid]
-  return { ...session, uid, needSetCookie }
-}
-
-const server = http.createServer((req, res) => {
-  // 设置响应头
-  res.setHeader('Content-type', 'application/json')
-  // 解析 cookie
-  const cookie = handleCookie(req.headers.cookie)
-  req.cookie = cookie
-  // 解析 session
-  const session = handleSession(req)
   req.session = session
   // 处理 POST 请求体
   handlePostData(req).then(postData => {
     req.body = JSON.parse(postData)
-    // 写入 cookie
-    if (req.session.needSetCookie) {
-      res.setHeader('Set-Cookie', `uid=${req.session.uid}1;Path=/;HttpOnly;Expires=${getCookieExpire()}`)
-    }
     const blogResult = handleBlogRouter(req, res)
     let data = {}
     if (blogResult) {
       return blogResult.then(result => {
+        // 写入 cookie
+        if (needSetCookie) {
+          res.setHeader('Set-Cookie', `uid=${uid};Path=/;HttpOnly;Expires=${getCookieExpire()}`)
+        }
         data = JSON.stringify(result)
         res.end(data)
       })
@@ -87,6 +82,10 @@ const server = http.createServer((req, res) => {
     const userData = handleUserRouter(req, res)
     if (userData) {
       return userData.then(result => {
+        // 写入 cookie
+        if (needSetCookie) {
+          res.setHeader('Set-Cookie', `uid=${uid};Path=/;HttpOnly;Expires=${getCookieExpire()}`)
+        }
         data = JSON.stringify(result)
         res.end(data)
       })
