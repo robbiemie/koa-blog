@@ -4,6 +4,7 @@ const login = ({ username, password }) => {
   return exec(sql).then(result => {
     return {
       code: result[0] ? 0 : -103,
+      data: result[0],
       msg: result[0] ? '登录成功' : '账号密码错误'
     }
   })

@@ -353,16 +353,32 @@ connection.end()
   1. 发送 `http` 请求，会将请求域中的 `cookie` 带给服务端
   2. 服务度可以修改 `cookie` 返回给浏览器
   3. 限制客户端修改 `cookie`
-
 ```js
 // nodejs 操作cookie
 // 读取cookie
 const cookie = req.headers.cookie
 // 写入cookie
 // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie
-res.setHeader('Set-Cookie', `username=${body.username}1;password=${body.password};Path=/;HttpOnly;Expires=${new Date().toGMTString()}`)
+res.setHeader('Set-Cookie', `username=${body.username};password=${body.password};Path=/;HttpOnly;Expires=${new Date().toGMTString()}`)
 ```
 
+- `session`
 
-- `session` 写入 `redis`
+  1. `session`: 本质是 `nodejs` 进程中的内存块,访问量过大导致内存过大
+  2. `session`: 多进程之间内存无法共享
+
+- `redis`
+  1. `redis`: 数据存放在内存中,数据存储量小,访问速度快,断电易丢失
+```bash
+# 启动 redis 服务
+$ redis-server
+# 启动cli
+$ redis-cli
+# 常用语法
+set <key> <value>
+get <key>
+del <key>
+keys *
+```
+
 - `nginx` 反向代理
