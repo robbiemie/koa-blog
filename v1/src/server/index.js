@@ -2,11 +2,11 @@ const http = require('http')
 const handleBlogRouter = require('./../router/blog')
 const handleUserRouter = require('./../router/user')
 const { getCookieExpire, handlePostData, handleCookie } = require('./../common/utils')
-
+const { get, set } = require('./../redis')
 // 处理 session
-const SESSION_DATA = {}
+// const SESSION_DATA = {}
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   // 设置响应头
   res.setHeader('Content-type', 'application/json')
   // 解析 cookie
@@ -16,16 +16,16 @@ const server = http.createServer((req, res) => {
   let uid = req.cookie.uid
   let needSetCookie = false
   if (uid) {
-    if (!SESSION_DATA[uid]) {
-      SESSION_DATA[uid] = {}
+    if (!await get(uid)) {
+      await set(uid, {})
     }
   } else {
     // 首次登陆
     needSetCookie = true
     uid = `${Date.now()}_${Math.random()}`
-    SESSION_DATA[uid] = {}
+    await set(uid, {})
   }
-  req.session = SESSION_DATA[uid]
+  req.session = await get(uid)
   // 处理 POST 请求体
   handlePostData(req).then(postData => {
     req.body = JSON.parse(postData)

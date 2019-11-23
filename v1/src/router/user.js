@@ -2,6 +2,7 @@ const SuccessRes = require('./../modal/SuccessRes')
 const ErrorRes = require('./../modal/ErrorRes')
 const { login } = require('./../controller/user')
 const { loginCheck } = require('./../common/utils')
+const { set } = require('./../redis')
 
 const handleUserRouter = (req, res) => {
   const method = req.method
@@ -11,8 +12,11 @@ const handleUserRouter = (req, res) => {
     if (path === '/api/blog/login') {
       // 登录操作
       const body = req.body
-      return login(body).then(result => {
+      return login(body).then(async result => {
         if (result.code === 0) {
+          await set(req.cookie.uid, {
+            ...result.data
+          })
           // 写入 session
           req.session.username = result.data.username
           req.session.nickname = result.data.nickname
