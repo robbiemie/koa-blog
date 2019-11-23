@@ -404,3 +404,40 @@ client.get('username', (err, val) => {
 ```
 
 - `nginx` 反向代理
+  1. 静态服务、负载均衡
+  2. 反向代理(服务后台、对客户端不可见)
+> 客户机发送请求时，不会直接发送到目的主机，而是先被代理服务器接收。通过代理配置，再向目的主机发送请求。  
+
+
+```bash
+# 检测 nginx 配置正确
+$ nginx -t
+# 启动 nginx
+$ nginx
+# 重启 nginx
+$ nginx -s reload
+# 停止 nginx
+nginx -s stop
+```
+
+
+```bash
+
+server {
+    listen       80; # 端口号
+    server_name  localhost; # 接口域名
+    add_header Access-Control-Allow-Origin localhost; # 允许跨域
+    location / {
+      proxy_pass http://localhost:5500; # webServer 反向代理: 5500
+    }
+    location /api/ {
+      proxy_pass http://localhost:3000; # node 反向代理
+      proxy_set_header Host $host;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+```
+

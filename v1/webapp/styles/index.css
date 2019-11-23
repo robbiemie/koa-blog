@@ -1,0 +1,12 @@
+.item {
+  /* height: 50px; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.content {
+  border-bottom-width: 0.5px;
+  border-bottom-color: #ccc;
+  border-bottom-style: solid;
+}

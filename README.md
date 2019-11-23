@@ -13,6 +13,30 @@ $ npm run server
 # 或者 使用 yarn 启动
 $ yarn server
 ```
+
+```bash
+# 配置nginx.conf
+server {
+    listen       80; # 端口号
+    server_name  localhost; # 接口域名
+    add_header Access-Control-Allow-Origin localhost;
+    location / {
+      proxy_pass http://localhost:5501;
+    }
+    location /api/ {
+      proxy_pass http://localhost:3000;
+      proxy_set_header Host $host;
+    }
+}
+```
+
+```bash
+# 启动 webServer
+
+# 访问首页
+http://localhost/v1/webapp/index.html
+```
+
 请求地址
 
 - 登录:  http://localhost:3000/api/blog/login
