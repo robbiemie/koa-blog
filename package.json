@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development yarn server",
+    "dev:debug": "cross-env NODE_ENV=development node --inspect-brk=8899 ./index",
     "prod": "cross-env NODE_ENV=production yarn server",
     "server": " nodemon ./index",
     "lint-fix": "eslint --fix ./v1",

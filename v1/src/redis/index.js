@@ -17,7 +17,7 @@ function set (key, value) {
 // 获取 key
 function get (key) {
   return new Promise((resolve, reject) => {
-    client.get('username', (err, val) => {
+    client.get(key, (err, val) => {
       if (err) {
         reject(err)
         throw err

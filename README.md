@@ -12,6 +12,9 @@ $ npm install
 $ npm run server
 # 或者 使用 yarn 启动
 $ yarn server
+# 3.启动 redis 服务
+$ redis-server
+$ redis-cli
 ```
 
 ```bash
