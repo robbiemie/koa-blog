@@ -366,9 +366,11 @@ res.setHeader('Set-Cookie', `username=${body.username};password=${body.password}
 
   1. `session`: 本质是 `nodejs` 进程中的内存块,访问量过大导致内存过大
   2. `session`: 多进程之间内存无法共享
+  3. `session`: 是为了方便用户加快访问的一种优化的措施
 
 - `redis`
   1. `redis`: 数据存放在内存中,数据存储量小,访问速度快,断电易丢失
+
 ```bash
 # 启动 redis 服务
 $ redis-server

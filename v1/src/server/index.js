@@ -1,44 +1,8 @@
 const http = require('http')
 const handleBlogRouter = require('./../router/blog')
 const handleUserRouter = require('./../router/user')
-const { getCookieExpire } = require('./../common/utils')
+const { getCookieExpire, handlePostData, handleCookie } = require('./../common/utils')
 
-// 处理 POST 请求数据
-const handlePostData = (req) => {
-  const method = req.method
-  const promise = new Promise((resolve, reject) => {
-    if (method !== 'POST') {
-      resolve('{}')
-      return
-    }
-    if (req.headers['content-type'] !== 'application/json') {
-      resolve('{}')
-      return
-    }
-    let data = ''
-    req.on('data', chunk => {
-      data += chunk.toString()
-    })
-    req.on('end', _ => {
-      if (!data) {
-        resolve('{}')
-        return
-      }
-      resolve(data)
-    })
-  })
-
-  return promise
-}
-// 处理 cookie
-const handleCookie = (strCookie = '') => {
-  return strCookie.split(';').reduce((prev, cur) => {
-    const key = cur.split('=')[0].trim()
-    const val = (cur.split('=')[1] && (cur.split('=')[1]).trim()) || ''
-    prev[key] = val
-    return prev
-  }, {})
-}
 // 处理 session
 const SESSION_DATA = {}
 
@@ -50,7 +14,6 @@ const server = http.createServer((req, res) => {
   req.cookie = cookie
   // 解析 session
   let uid = req.cookie.uid
-  let session = ''
   let needSetCookie = false
   if (uid) {
     if (!SESSION_DATA[uid]) {
@@ -62,8 +25,7 @@ const server = http.createServer((req, res) => {
     uid = `${Date.now()}_${Math.random()}`
     SESSION_DATA[uid] = {}
   }
-  session = SESSION_DATA[uid]
-  req.session = session
+  req.session = SESSION_DATA[uid]
   // 处理 POST 请求体
   handlePostData(req).then(postData => {
     req.body = JSON.parse(postData)

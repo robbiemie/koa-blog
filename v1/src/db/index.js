@@ -17,7 +17,7 @@ function exec (sql) {
         reject(err)
         return
       }
-      console.log('查询结果: ', res)
+      // console.log('查询结果: ', res)
       resolve(res)
     })
   })
