@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>首页</title>
+    <title>编辑博客</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./styles/index.css">
+    <link rel="stylesheet" type="text/css" href="./styles/edit.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    
   </head>
   <body>
-    <div>
-      xxx
+    <div id="app">
+        <div>
+            <span class="label">标题: </span><input id="title" type="text"/>
+        </div>
+        <div class="content_wrap">
+            <span class="label content_label">正文: </span>
+            <textarea id="content" class="content"></textarea>
+        </div>
+        <div class="btn edit_btn">
+          新建
+        </div>
     </div>
+  <script src="./module/edit/index.js"></script>
   </body>
 </html>

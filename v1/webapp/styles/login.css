@@ -1,0 +1,13 @@
+
+.username_label {
+  min-width: 80px;
+  margin-right: -4px;
+}
+
+.password_label {
+  min-width: 80px;
+}
+
+.login_btn {
+  width: 80px;
+}

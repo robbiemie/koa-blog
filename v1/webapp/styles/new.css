@@ -1,0 +1,14 @@
+
+.new_btn {
+  width: 80px;
+}
+.content {
+  min-width: 500px;
+  min-height: 180px;
+}
+
+.content_wrap {
+  margin-top: 20px;
+  display: flex;
+  align-self: flex-start;
+}

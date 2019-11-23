@@ -18,7 +18,7 @@ const handleUserRouter = (req, res) => {
           req.session.nickname = result.data.nickname
           return new SuccessRes(result)
         } else {
-          return new ErrorRes({ result })
+          return new ErrorRes(result)
         }
       })
     }

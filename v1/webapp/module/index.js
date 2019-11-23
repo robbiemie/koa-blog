@@ -1,7 +1,7 @@
-const get = async function (url, data) {
+const $get = async function (url, data) {
   return new Promise(resolve => {
     $.ajax({
-      url: 'http://localhost/api/blog/list',
+      url,
       method: 'GET'
     }).done(res => {
       if (res.code === 0) {
@@ -15,13 +15,13 @@ const get = async function (url, data) {
 
 function renderListItem (info) {
   const el = `
-    <p class="item">
-      <h2 class="title">${info.title}</h2>
+    <div class="item">
+      <h2 class="title" data-id=${info.id}>${info.title}</h2>
       <div class="content">${info.content}</div>
       <div>
         <span class="author">作者: ${info.nickname}</span>
       </div>
-    </p>
+    </div>
   `
   return el
 }
@@ -32,12 +32,19 @@ function renderList (list) {
   })
 }
 
+function addEventListener () {
+  $('.title').click(e => {
+    const id = $(e.target).attr('data-id')
+    window.location.href = `http://localhost/v1/webapp/detail.html?id=${id}`
+  })
+}
+
 async function app () {
-  const list = await get()
-  console.log('list', list)
+  const list = await $get('http://localhost/api/blog/list')
   const root = $('#app')
   const elList = renderList(list)
   root.append(elList)
+  addEventListener()
 }
 
 app()
