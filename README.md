@@ -77,4 +77,6 @@ http://localhost/v1/webapp/index.html
 
 4. [接口设计方案](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
 
-5. [用户登录态](https://github.com/yang657850144/koa-blog/blob/master/TECH-DOC.md)
+5. [用户登录态](https://github.com/yang657850144/koa-blog/blob/master/docs/03.loginstatus.md)
+
+6. [日志系统](https://github.com/yang657850144/koa-blog/blob/master/docs/04.log.md)
