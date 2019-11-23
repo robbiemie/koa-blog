@@ -50,7 +50,7 @@ const update = (data) => {
 }
 
 const del = ({ id, nickname }) => {
-  const sql = `delete from blogs where id=${id} and nickname='${nickname}'`
+  const sql = `delete from blogs where id=${id}`
   return exec(sql).then(result => {
     return {
       msg: result.affectedRows > 0 ? '操作成功' : '服务器错误'
