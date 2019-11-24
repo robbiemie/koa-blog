@@ -1,6 +1,9 @@
-const { exec } = require('./../db')
+const { exec, escape } = require('./../db')
 const login = ({ username, password }) => {
-  const sql = `select username,nickname from users where username='${username}' and password='${password}'`
+  // 转义
+  const u = escape(username)
+  const p = escape(password)
+  const sql = `select username,nickname from users where username=${u} and password=${p}` // sql 注入漏洞
   return exec(sql).then(result => {
     let returnRes = {}
     if (result[0]) {

@@ -17,7 +17,7 @@ const runtimeWriteStream = createWriteStream('runtime.log')
 
 // 写日志
 const writeLog = (writeStream, log) => {
-  writeStream.write(`[${dFormat('yyyy-MM-dd hh:mm:ss')}]    ` + log + '\n') // 写入日志
+  writeStream.write(`[${dFormat('yyyy-MM-dd hh:mm:ss')}]  ` + log + '\n') // 写入日志
 }
 
 const access = log => {

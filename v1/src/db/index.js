@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 const { MYSQL_CONF } = require('./../config/db')
-const { runtime } = require('./../common/logger')
+const { runtime, error } = require('./../common/logger')
 
 // 创建连接对象
 const connection = mysql.createConnection(MYSQL_CONF)
@@ -15,8 +15,7 @@ function exec (sql) {
   const promise = new Promise((resolve, reject) => {
     connection.query(sql, (err, res) => {
       if (err) {
-        console.error(err)
-        reject(err)
+        error(`SQL ERROR: ${err}`)
         return
       }
       // console.log('查询结果: ', res)
@@ -27,5 +26,6 @@ function exec (sql) {
 }
 
 module.exports = {
-  exec
+  exec,
+  escape: mysql.escape
 }
