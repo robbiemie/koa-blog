@@ -1,3 +1,4 @@
+const xss = require('xss')
 const { exec } = require('./../db')
 
 const getList = (nickname, keyword) => {
@@ -22,7 +23,7 @@ const getDetailById = id => {
 }
 
 const create = data => {
-  const sql = `insert into blogs (title,content,createtime,nickname) values ('${data.title}','${data.content}','${Date.now()}','${data.nickname}');`
+  const sql = `insert into blogs (title,content,createtime,nickname) values ('${xss(data.title)}','${xss(data.content)}','${Date.now()}','${data.nickname}');`
   return exec(sql).then(result => {
     let data = {}
     if (result.insertId) {
@@ -46,13 +47,13 @@ const create = data => {
 const update = (data) => {
   let props = ''
   if (data.title) {
-    props += `title='${data.title}' `
+    props += `title='${xss(data.title)}' `
   }
   if (data.content) {
     if (data.title) {
       props += ','
     }
-    props += `content='${data.content}' `
+    props += `content='${xss(data.content)}' `
   }
   const sql = `update blogs set ${props} where id=${data.id};`
   return exec(sql).then(result => {
