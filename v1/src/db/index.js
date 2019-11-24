@@ -16,7 +16,11 @@ function exec (sql) {
     connection.query(sql, (err, res) => {
       if (err) {
         error(`SQL ERROR: ${err}`)
-        return
+        resolve({
+          code: -104,
+          msg: 'sql 语法错误',
+          error: err
+        })
       }
       // console.log('查询结果: ', res)
       resolve(res)

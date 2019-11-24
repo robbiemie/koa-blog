@@ -32,7 +32,11 @@ const handleBlogRouter = (req) => {
       const body = req.body
       body.nickname = 'robbieyang' // TODO: MOCK
       return create(body).then(result => {
-        return new SuccessRes(result)
+        if (result.code === 0) {
+          return new SuccessRes(result)
+        } else {
+          return new ErrorRes(result, '操作失败')
+        }
       })
     } else if (path === '/api/blog/update') {
       const check = loginCheck(req)
@@ -41,10 +45,10 @@ const handleBlogRouter = (req) => {
       const body = req.body
       body.nickname = 'robbieyang' // TODO: MOCK
       return update(body).then(result => {
-        if (result) {
+        if (result.code === 0) {
           return new SuccessRes(result)
         } else {
-          return new ErrorRes(null, 'error')
+          return new ErrorRes(result, '操作失败')
         }
       })
     } else if (path === '/api/blog/delete') {
@@ -53,10 +57,10 @@ const handleBlogRouter = (req) => {
       // 删除博客接口
       const body = req.body
       return del(body).then(result => {
-        if (result) {
+        if (result.code === 0) {
           return new SuccessRes(result)
         } else {
-          return new ErrorRes(null, 'error')
+          return new ErrorRes(result, '操作失败')
         }
       })
     }

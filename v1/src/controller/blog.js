@@ -24,8 +24,21 @@ const getDetailById = id => {
 const create = data => {
   const sql = `insert into blogs (title,content,createtime,nickname) values ('${data.title}','${data.content}','${Date.now()}','${data.nickname}');`
   return exec(sql).then(result => {
+    let data = {}
+    if (result.insertId) {
+      data = {
+        code: 0,
+        id: result.insertId,
+        msg: '操作成功'
+      }
+    } else {
+      data = {
+        code: -104,
+        msg: '操作失败'
+      }
+    }
     return {
-      id: result.insertId
+      msg: data
     }
   })
 }
@@ -43,18 +56,38 @@ const update = (data) => {
   }
   const sql = `update blogs set ${props} where id=${data.id};`
   return exec(sql).then(result => {
-    return {
-      msg: result.affectedRows > 0 ? '操作成功' : '服务器错误'
+    let data = {}
+    if (result.affectedRows > 0) {
+      data = {
+        code: 0,
+        msg: '操作成功'
+      }
+    } else {
+      data = {
+        code: -104,
+        msg: '操作失败'
+      }
     }
+    return data
   })
 }
 
 const del = ({ id, nickname }) => {
   const sql = `delete from blogs where id=${id}`
   return exec(sql).then(result => {
-    return {
-      msg: result.affectedRows > 0 ? '操作成功' : '服务器错误'
+    let data = {}
+    if (result.affectedRows > 0) {
+      data = {
+        code: 0,
+        msg: '操作成功'
+      }
+    } else {
+      data = {
+        code: -104,
+        msg: '操作失败'
+      }
     }
+    return data
   })
 }
 
