@@ -72,3 +72,15 @@
 [2019-11-24 16:36:55]  执行命令: update blogs set title='xss alert(document)' ,content='正文Dxxxxxcccccdddxxxc&lt;script&gt;alert(document.cookie)&lt;/script&gt;'  where id=4;
 [2019-11-24 16:36:58]  执行命令: select * from blogs where 1=1 order by createtime desc;
 [2019-11-24 16:37:15]  执行命令: select * from blogs where 1=1 order by createtime desc;
+[2019-11-24 16:58:08]  执行命令: select * from blogs where 1=1 and id=4 order by createtime desc;
+[2019-11-24 16:58:12]  执行命令: select * from blogs where 1=1 and id=4 order by createtime desc;
+[2019-11-24 16:58:20]  执行命令: select username,nickname from users where username='root' and password='222'
+[2019-11-24 16:58:26]  执行命令: select username,nickname from users where username='root' and password='234'
+[2019-11-24 16:59:01]  执行命令: select username,nickname from users where username='root' and password='234'
+[2019-11-24 16:59:07]  执行命令: select username,nickname from users where username='root' and password='123'
+[2019-11-24 16:59:38]  执行命令: select username,nickname from users where username='root' and password='123'
+[2019-11-24 17:00:44]  执行命令: select username,nickname from users where username='root' and password='123'
+[2019-11-24 17:01:09]  执行命令: select username,nickname from users where username='root' and password='123'
+[2019-11-24 17:01:34]  执行命令: select username,nickname from users where username='root' and password='123'
+[2019-11-24 17:01:51]  执行命令: select username,nickname from users where username='root' and password='bf6631b7bcedc63bf3c1a7140a0aad6d'
+[2019-11-24 17:01:51]  执行命令: select * from blogs where 1=1 order by createtime desc;
