@@ -2,11 +2,14 @@ const http = require('http')
 const handleBlogRouter = require('./../router/blog')
 const handleUserRouter = require('./../router/user')
 const { getCookieExpire, handlePostData, handleCookie } = require('./../common/utils')
+const { access } = require('./../common/logger')
 const { get, set } = require('./../redis')
 // 处理 session
 // const SESSION_DATA = {}
 
 const server = http.createServer(async (req, res) => {
+  access(`host: ${req.headers.host}, user-agent: ${req.headers['user-agent']}, referer: ${req.headers.referer}`)
+  access(`cookie: ${req.headers.cookie}`)
   // 设置响应头
   res.setHeader('Content-type', 'application/json')
   // 解析 cookie
