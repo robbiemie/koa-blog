@@ -55,12 +55,12 @@ function renderList (list) {
 function addEventListener () {
   $('.title').click(e => {
     const id = $(e.target).attr('data-id')
-    window.location.href = `http://localhost/v1/webapp/detail.html?id=${id}`
+    window.location.href = `http://localhost/webapp/detail.html?id=${id}`
   })
 
   $('.edit').click(e => {
     const id = $(e.target).attr('data-id')
-    window.location.href = `http://localhost/v1/webapp/edit.html?id=${id}`
+    window.location.href = `http://localhost/webapp/edit.html?id=${id}`
   })
 
   $('.delete').click(function () {
@@ -93,7 +93,7 @@ function addEventListener () {
               }, 3000)
             } else {
               setTimeout(_ => {
-                window.location.replace('http://localhost/v1/webapp/login.html')
+                window.location.replace('http://localhost/webapp/login.html')
               }, 3000)
             }
           }

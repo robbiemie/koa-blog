@@ -66,11 +66,11 @@ const addEventListener = function () {
     })
     if (res.code === 0) {
       setTimeout(_ => {
-        window.location.replace('http://localhost/v1/webapp/index.html')
+        window.location.replace('http://localhost/webapp/index.html')
       }, 3000)
     } else {
       setTimeout(_ => {
-        window.location.replace('http://localhost/v1/webapp/login.html')
+        window.location.replace('http://localhost/webapp/login.html')
       }, 3000)
     }
   })

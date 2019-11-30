@@ -17,30 +17,23 @@ const $post = async function (url, data) {
 }
 
 const addEventListener = function () {
-  $('.new_btn').click(async _ => {
-    const title = $('#title').val() || ''
-    const content = $('#content').val() || ''
+  $('.login_btn').click(async _ => {
+    const uname = $('#uname').val() || ''
+    const pwd = $('#passwd').val() || ''
     const data = {
-      title,
-      content
+      username: uname,
+      password: pwd
     }
-    const res = await $post('http://localhost/api/blog/create', JSON.stringify(data))
-    console.log('res', res)
+    const res = await $post('http://localhost/api/user/login', JSON.stringify(data))
     $.toast({
       heading: res.code === 0 ? 'Success' : 'Error',
       icon: res.code === 0 ? 'success' : 'error',
-      text: res.message || '新建成功',
+      text: res.message || '登录失败，请稍后重试',
       showHideTransition: 'slide',
       position: 'top-center'
     })
     if (res.code === 0) {
-      setTimeout(_ => {
-        window.location.replace('http://localhost/v1/webapp/index.html')
-      }, 3000)
-    } else {
-      setTimeout(_ => {
-        window.location.replace('http://localhost/v1/webapp/login.html')
-      }, 3000)
+      window.location.replace('http://localhost/webapp/index.html')
     }
   })
 }

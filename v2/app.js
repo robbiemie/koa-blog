@@ -35,8 +35,8 @@ app.use(session({
 
 // 路由注册
 app.use('/', indexRouter)
-app.use('/user', userRouter)
-app.use('/blog', blogRouter)
+app.use('/api/user', userRouter)
+app.use('/api/blog', blogRouter)
 
 // 处理 404
 app.use(function (req, res, next) {
