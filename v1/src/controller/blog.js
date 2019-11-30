@@ -38,9 +38,7 @@ const create = data => {
         msg: '操作失败'
       }
     }
-    return {
-      msg: data
-    }
+    return data
   })
 }
 
