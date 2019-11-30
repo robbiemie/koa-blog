@@ -13,4 +13,13 @@ router.post('/login', function (req, res, next) {
   })
 })
 
+router.get('/session-test', function (req, res, next) {
+  const session = req.session
+  if (!session.viewPage) {
+    session.viewPage = 0
+  }
+  session.viewPage++
+  res.json({ session })
+})
+
 module.exports = router

@@ -1,14 +1,15 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const session = require('express-session')
 
-var indexRouter = require('./routes/index')
-var userRouter = require('./routes/user')
-var blogRouter = require('./routes/blog')
+const indexRouter = require('./routes/index')
+const userRouter = require('./routes/user')
+const blogRouter = require('./routes/blog')
 
-var app = express()
+const app = express()
 
 // 模板引擎
 app.set('views', path.join(__dirname, 'views'))
@@ -20,6 +21,18 @@ app.use(express.urlencoded({ extended: false }))
 // 解析 cookie
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+// 处理 session，必须在 router 处理之前
+// 密匙
+const SECRET_KEY = 'wJHjco_h8t6'
+app.use(session({
+  secret: SECRET_KEY,
+  cookie: {
+    path: '/', // cookie 生效路由
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24小时失效
+  }
+}))
+
 // 路由注册
 app.use('/', indexRouter)
 app.use('/user', userRouter)
