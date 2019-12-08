@@ -10,6 +10,7 @@
     "pro:express": "cross-env NODE_ENV=production nodemon ./v2/bin/www",
     "koa:start": "cross-env NODE_ENV=production nodemon ./v3/bin/www",
     "koa:dev": "cross-env NODE_ENV=production nodemon ./v3/bin/www",
+    "pm2": "cross-env NODE_ENV=production pm2 start ./pm2.config.json",
     "koa:prd": "pm2 koa:start ./v3/bin/www",
     "server": " nodemon ./index",
     "lint-fix": "eslint --fix ./v1",

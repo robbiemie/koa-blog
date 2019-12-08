@@ -1,0 +1,15 @@
+{
+  "apps": {
+    "name": "pm2-app-server",
+    "script": "index.js",
+    "watch": true,
+    "instances": 2,
+    "ignore_watch": [
+      "node_modules",
+      "pm2"
+    ],
+    "error_file": "pm2/logs/error.log",
+    "out_file": "pm2/logs/out.log",
+    "log_date_format": "YYYY-MM-DD HH:mm:ss"
+  }
+}
