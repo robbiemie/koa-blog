@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development yarn server",
     "dev:debug": "cross-env NODE_ENV=development nodemon --inspect=8899 ./v2/bin/www",
     "dev:express": "cross-env NODE_ENV=development nodemon ./v2/bin/www",
+    "pro:express": "cross-env NODE_ENV=production nodemon ./v2/bin/www",
     "prod": "cross-env NODE_ENV=production yarn server",
     "server": " nodemon ./index",
     "lint-fix": "eslint --fix ./v1",
@@ -35,7 +36,7 @@
     "http-errors": "~1.6.3",
     "husky": "^3.0.9",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1",
+    "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
     "redis": "^2.8.0",
     "xss": "^1.0.6"

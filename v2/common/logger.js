@@ -34,6 +34,7 @@ const runtime = log => {
 
 module.exports = {
   access,
+  accessWriteStream,
   error,
   runtime
 }

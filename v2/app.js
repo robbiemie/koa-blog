@@ -1,6 +1,7 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
+const fs = require('fs')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
@@ -17,7 +18,20 @@ const app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 // 日志
-app.use(logger('dev'))
+const ENV = process.env.NODE_ENV
+if (ENV === 'production') {
+  // 开发环境
+  app.use(logger('dev'))
+} else {
+  const fullFileName = path.resolve(__dirname, './log/access.log')
+  const writeStream = fs.createWriteStream(fullFileName, {
+    flags: 'a'
+  })
+  app.use(logger('combined', {
+    stream: writeStream // 文件写入流
+  }))
+}
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 // 解析 cookie
