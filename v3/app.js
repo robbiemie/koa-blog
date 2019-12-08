@@ -7,6 +7,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
+const { REDIS_CONF } = require('./config/db')
 
 const blog = require('./routes/blog')
 const user = require('./routes/user')
@@ -42,7 +43,7 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   },
   store: redisStore({
-    all: '127.0.0.1:6379'
+    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
   })
 }))
 

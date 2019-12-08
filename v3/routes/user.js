@@ -1,18 +1,23 @@
 const router = require('koa-router')()
+const SuccessRes = require('./../modal/SuccessRes')
+const ErrorRes = require('./../modal/ErrorRes')
+const { login } = require('./../controller/user')
 
 router.prefix('/api/user')
-
-router.get('/session-test', async function (ctx, next) {
-  if (!ctx.session.viewCount) ctx.session.viewCount = 0
-  ctx.session.viewCount++
-  ctx.body = {
-    code: 0,
-    count: ctx.session.viewCount
+/* 二级路由 */
+router.post('/login', async function (ctx, next) {
+  // 登录操作
+  const body = ctx.request.body || {}
+  const result = await login(body)
+  if (result.code === 0) {
+    // 写入 session
+    ctx.session.username = result.data.username
+    ctx.session.nickname = result.data.nickname
+    ctx.body = (new SuccessRes(result))
+    next()
+  } else {
+    ctx.body = (new ErrorRes(result))
+    next()
   }
 })
-
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
-
 module.exports = router
