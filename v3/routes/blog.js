@@ -11,7 +11,6 @@ router.get('/list', async function (ctx, next) {
   // 获取博客列表接口
   const nickname = ctx.request.query.nickname || ''
   const keyword = ctx.request.query.keyword || ''
-  console.log('list---', ctx.query)
   const result = await getList(nickname, keyword)
   ctx.body = (new SuccessRes(result)) // 此处不使用 return 返回数据
 })

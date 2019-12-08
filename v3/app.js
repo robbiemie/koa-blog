@@ -1,10 +1,13 @@
 const Koa = require('koa')
 const app = new Koa()
 // const views = require('koa-views')
+const path = require('path')
+const fs = require('fs')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const morgan = require('koa-morgan')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const { REDIS_CONF } = require('./config/db')
@@ -21,6 +24,20 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+// 日志
+const ENV = process.env.NODE_ENV
+if (ENV !== 'production') {
+  // 开发环境
+  app.use(morgan('dev'))
+} else {
+  const fullFileName = path.resolve(__dirname, './log/access.log')
+  const writeStream = fs.createWriteStream(fullFileName, {
+    flags: 'a'
+  })
+  app.use(morgan('combined', {
+    stream: writeStream // 文件写入流
+  }))
+}
 // app.use(require('koa-static')(__dirname + '/public'))
 
 // app.use(views(__dirname + '/views', {
