@@ -4,6 +4,8 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
+const redisClient = require('./redis')
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
@@ -22,6 +24,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 // 处理 session，必须在 router 处理之前
+const sessionStore = new RedisStore({
+  client: redisClient
+})
 // 密匙
 const SECRET_KEY = 'wJHjco_h8t6'
 app.use(session({
@@ -30,7 +35,8 @@ app.use(session({
     path: '/', // cookie 生效路由
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24小时失效
-  }
+  },
+  store: sessionStore
 }))
 
 // 路由注册

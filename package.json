@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development yarn server",
-    "dev:debug": "cross-env NODE_ENV=development nodemon --inspect=8899 ./index",
+    "dev:debug": "cross-env NODE_ENV=development nodemon --inspect=8899 ./v2/bin/www",
     "dev:express": "cross-env NODE_ENV=development nodemon ./v2/bin/www",
     "prod": "cross-env NODE_ENV=production yarn server",
     "server": " nodemon ./index",
@@ -20,6 +20,7 @@
     }
   },
   "devDependencies": {
+    "connect-redis": "^4.0.3",
     "cookie-parser": "~1.4.4",
     "cross-env": "^6.0.3",
     "debug": "~2.6.9",
